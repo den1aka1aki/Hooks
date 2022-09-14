@@ -14,6 +14,17 @@ const CollapseWrapper = ({ children, title, name }) => {
         display ? newCollapse.show() : newCollapse.hide();
     }, [display]);
 
+   const list = React.Children.map(children, (child, index) => {
+        if (child.type.name === "Component") {
+            return (
+                <div className='d-flex'>
+                    {index + "-"} {child}
+                </div>
+            );
+        } else {
+            return child;
+        }
+    });
     return (
         <div className="card  my-2">
             <div className="card-body">
@@ -28,7 +39,7 @@ const CollapseWrapper = ({ children, title, name }) => {
                     ></i>
                 </div>
                 <div className="collapse" ref={collapseRef} id={name + title}>
-                    {children}
+                    {list}
                 </div>
             </div>
         </div>
